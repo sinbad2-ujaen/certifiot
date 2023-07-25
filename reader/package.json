@@ -1,0 +1,19 @@
+{
+  "name": "reader",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@abandonware/noble": "^1.9.2-21",
+    "bluetooth": "^3.0.0",
+    "dotenv": "^16.0.3",
+    "noble": "^1.9.1",
+    "noble-mac": "https://github.com/Timeular/noble-mac.git",
+    "node-gyp": "^9.3.1"
+  }
+}

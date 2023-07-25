@@ -1,0 +1,60 @@
+#!/bin/bash
+
+services=( manager verifier storage reader publisher identity )
+
+teardown_service() {
+	pushd $1; pm2 stop $1; pm2 delete $1; rm -rf node_modules; popd
+}
+
+stop_service() {
+	pm2 stop $1
+}
+
+start_service() {
+	pushd $1; npm i; pm2 start index.js --name $1 --watch; popd
+}
+
+stop() {
+	for s in ${services[@]}
+	do
+		stop_service $s
+	done
+	pm2 flush
+}
+
+start() {
+	pushd core; npm i; popd
+	for s in ${services[@]}
+	do
+		start_service $s
+	done
+}
+
+start2() {
+  pushd core; npm i; popd
+  for s in ${services[@]}
+  do
+    installDeps $s
+  done
+
+  pm2 start ecosystem.config.js;
+  pm2 logs;
+}
+
+installDeps() {
+  pushd $1; npm i; popd
+}
+
+restart() {
+  stop
+  start2
+}
+
+teardown() {
+	for s in ${services[@]}
+	do
+		teardown_service $s
+	done
+	pushd core; rm -rf node_modules; popd
+}
+$@
