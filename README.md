@@ -20,15 +20,15 @@
 <br />
 <div align="center">
 
-  <h1 align="center">Phonendo</h1>
+  <h1 align="center">CertifIoT</h1>
 
   <p align="center">
-    Phonendo is a platform consisting of several software services that manages the entire data lifecycle from wearable device data collection to publishing them on IOTA.
+    CertifIoT is a novel DLT-based solution for certifying data from IoT ecosystems. It extends the Phonendo Framework with the Identity module which, implements the additional features required for data certification. We have also proposed an adaptable and extensible data model, along with a protocol for trust endorsement.
     <br />
     <br />
-    <a href="https://github.com/sinbad2-ujaen/phonendo/blob/main/demo/phonendo_demo.mp4">View Demo</a>
+    <a href="https://github.com/sinbad2-ujaen/phonendo">Phonendo</a>
     ·
-    <a href="https://github.com/sinbad2-ujaen/phonendo/issues">Report Bug / Request Feature</a>
+    <a href="https://github.com/sinbad2-ujaen/certifiot/issues">Report Bug / Request Feature</a>
   </p>
 </div>
 
@@ -59,15 +59,17 @@
 <!-- ABOUT THE PROJECT -->
 ## About The Project
 
-[![Phonendo][product-screenshot]](https://github.com/sinbad2-ujaen/phonendo)
+[![Phonendo][product-screenshot]](https://github.com/sinbad2-ujaen/certifiot)
 
-The Phonendo architecture adopts a microservice event-driven approach, consisting of five key components: Reader, Manager, Storage, Verifier, and Publisher. The diagram below depicts the interconnectedness of these components and highlights their primary functions. This architectural design prioritizes flexibility, scalability, and adaptability across various applications.
+CertifIoT is a system for certifying data from IoT streams. CertifIoT extends Phonendo's architecture (https://github.com/sinbad2-ujaen/phonendo) with the required modules to enable data certification.
 
-To facilitate rapid prototyping and leverage the extensive support within the developer community, we opted for the Node.js framework and JavaScript programming language in the development of Phonendo. HTTP was chosen as the communication protocol due to its simplicity in facilitating seamless data transfer between services.
+The main extension is the development of the module called Identity, which is responsible for the following tasks:
 
-During the implementation phase, we employed the Pine Time smartwatch (available at [https://www.pine64.org/pinetime/](https://www.pine64.org/pinetime/)) as a reference device. This choice allowed us to ensure compatibility and evaluate the integration of Phonendo with a real-world wearable device. By doing so, we were able to validate the platform's functionality and its capacity to handle data from smartwatches, which are commonly used in healthcare and fitness applications.
+- Identity management: The process involves using the organisation's public key to build a transaction with the CertifIoT identity structure and publishing it on the data registry with an index that allows retrieval of the published data.
 
-It is essential to acknowledge that the current implementation of Phonendo serves as a foundation for further research and development. As we continue refining the platform and exploring additional use cases, we anticipate introducing enhancements and optimizations based on empirical experimentation and user feedback.
+- Trust endorsement. Allowing entities involved in the process to endorse each other. This provides confidence and robustness to the data published by an endorsed organisation.
+
+- Data retrieval. Retrieving all data published on IOTA by a given organisation. This includes the organisation's identity, the entities who endorsed the given organisation, and all data published by all of the organisation's devices.
 
 <!-- GETTING STARTED -->
 ## Getting Started
@@ -89,7 +91,7 @@ This is an example of how to list things you need to use the software and how to
 
 1. Clone the repo
    ```sh
-   git clone https://github.com/sinbad2-ujaen/phonendo.git
+   git clone https://github.com/sinbad2-ujaen/certifiot.git
    ```
 2. Install NPM packages
    ```sh
@@ -127,7 +129,7 @@ Once all services are up, next step is to register a device using the Reader end
 curl --location 'http://127.0.0.1:3003/register' \ --header 'Content-Type: application/x-www-form-urlencoded' \ --data-urlencode 'device=XXXXXXXXXX' \ --data-urlencode 'serialNumber=XXX' \ --data-urlencode 'deviceType=SMARTWATCH'
 ```
 
-Once the device is registered, Phonendo will automatically detect, connect and start listening events. In particular, it captures heartbeat events.
+Once the device is registered, CertifIoT will automatically detect, connect and start listening events. In particular, it captures heartbeat events.
 
 <!-- CONTRIBUTING -->
 ## Contributing
@@ -154,16 +156,16 @@ Distributed under the MIT License. See `LICENSE.txt` for more information.
 
 <!-- MARKDOWN LINKS & IMAGES -->
 <!-- https://www.markdownguide.org/basic-syntax/#reference-style-links -->
-[contributors-shield]: https://img.shields.io/github/contributors/sinbad2-ujaen/phonendo.svg?style=for-the-badge
-[contributors-url]: https://github.com/sinbad2-ujaen/phonendo/graphs/contributors
-[forks-shield]: https://img.shields.io/github/forks/sinbad2-ujaen/phonendo.svg?style=for-the-badge
-[forks-url]: https://github.com/sinbad2-ujaen/phonendo/network/members
-[stars-shield]: https://img.shields.io/github/stars/sinbad2-ujaen/phonendo.svg?style=for-the-badge
-[stars-url]: https://github.com/sinbad2-ujaen/phonendo/stargazers
-[issues-shield]: https://img.shields.io/github/issues/sinbad2-ujaen/phonendo.svg?style=for-the-badge
-[issues-url]: https://github.com/sinbad2-ujaen/phonendo/issues
-[license-shield]: https://img.shields.io/github/license/sinbad2-ujaen/phonendo.svg?style=for-the-badge
-[license-url]: https://github.com/sinbad2-ujaen/phonendo/LICENSE.txt
+[contributors-shield]: https://img.shields.io/github/contributors/sinbad2-ujaen/certifiot.svg?style=for-the-badge
+[contributors-url]: https://github.com/sinbad2-ujaen/certifiot/graphs/contributors
+[forks-shield]: https://img.shields.io/github/forks/sinbad2-ujaen/certifiot.svg?style=for-the-badge
+[forks-url]: https://github.com/sinbad2-ujaen/certifiot/network/members
+[stars-shield]: https://img.shields.io/github/stars/sinbad2-ujaen/certifiot.svg?style=for-the-badge
+[stars-url]: https://github.com/sinbad2-ujaen/certifiot/stargazers
+[issues-shield]: https://img.shields.io/github/issues/sinbad2-ujaen/certifiot.svg?style=for-the-badge
+[issues-url]: https://github.com/sinbad2-ujaen/certifiot/issues
+[license-shield]: https://img.shields.io/github/license/sinbad2-ujaen/certifiot.svg?style=for-the-badge
+[license-url]: https://github.com/sinbad2-ujaen/certifiot/LICENSE.txt
 [linkedin-shield]: https://img.shields.io/badge/-LinkedIn-black.svg?style=for-the-badge&logo=linkedin&colorB=555
 [linkedin-url]: https://www.linkedin.com/in/francisco-moya/
 [product-screenshot]: images/system.jpg
