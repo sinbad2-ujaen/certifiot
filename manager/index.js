@@ -4,8 +4,11 @@ const { promisePostRequest, promiseDeleteRequest, promiseGetRequest} = require('
 const crypto = require('crypto');
 const EdDSA = require('elliptic').eddsa;
 const { v4: uuidv4 } = require('uuid');
+const { retrieveData, SingleNodeClient } = require("@iota/iota.js");
 
 const PHONENDO_HEARTRATE_SCHEME = "https://explorer.iota.org/devnet/message/95067ae28dcefa355d5f5f1d335446c03d9e1049d65df5fc7296c06a2288ec01";
+const PHONENDO_HEARTRATE_SCHEME_TRANSACTION = "95067ae28dcefa355d5f5f1d335446c03d9e1049d65df5fc7296c06a2288ec01";
+const PHONENDO_HEARTRATE_SCHEME_HASH = "cbb8427b43e4a2a1046509aaa05dc33440707c27d9731f2c34c35c46ee933413";
 
 const EVENT_TYPE = {
     Heartrate: "HEART_RATE"
@@ -171,9 +174,29 @@ function signDataSource(message) {
     return key.sign(messageBuffer).toHex();
 }
 
-function loadHeartbeatDataModel() {
-    // TODO load heartRateDataModel = res;
+async function loadHeartbeatDataModel() {
+
+    const iotaNodeClient = new SingleNodeClient("https://api.lb-0.h.chrysalis-devnet.iota.cafe");
+
+    const foundDatamodel = await iotaNodeClient.message(PHONENDO_HEARTRATE_SCHEME_TRANSACTION);
+
+    if (foundDatamodel) {
+
+        let dataModelString = '';
+        for (let i = 0; i < foundDatamodel.payload.data.length; i += 2) {
+            dataModelString += String.fromCharCode(parseInt(foundDatamodel.payload.data.substr(i, 2), 16));
+        }
+
+        const hash = crypto.createHash('sha256').update(dataModelString).digest('hex');
+
+        if (hash === PHONENDO_HEARTRATE_SCHEME_HASH) {
+            heartRateDataModel = JSON.parse(dataModelString);
+            console.log("Heartrate data model loaded");
+        } else {
+            console.error("Invalid phonendo heartrate data model");
+        }
+    }
 }
 
 express.run();
-//loadHeartbeatDataModel();
+loadHeartbeatDataModel();
